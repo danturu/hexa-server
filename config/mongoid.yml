@@ -4,7 +4,7 @@ development:
       database: hexa_server_development
 
       hosts:
-        - localhost: 27017
+        - 0.0.0.0
 
       options:
         # Change the default write concern. (default = { w: 1 })
@@ -58,7 +58,7 @@ test:
       database: hexa_server_test
 
       hosts:
-        - localhost: 27017
+        - 0.0.0.0
 
       options:
         read: primary

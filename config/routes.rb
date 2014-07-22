@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  match "*options", to: "api/v1/base#options", via: :all, constraints: { method: "OPTIONS" }
+  match "*any", to: "api/v1/base#options", via: :all, constraints: { method: "OPTIONS" }
 
   use_doorkeeper
+
+  if Rails.env.production?
+    get "*id", to: "files#serve", format: false, constraints: { subdomain: "storage" }
+  else
+    get "storage/*id", to: "files#serve", format: false
+  end
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
