@@ -156,6 +156,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    state_machine (1.2.0)
     thin (1.6.2)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -192,6 +193,7 @@ DEPENDENCIES
   rails_12factor
   sass-rails (= 4.0.3)
   spring
+  state_machine (= 1.2.0)
   thin (= 1.6.2)
   turbolinks (= 2.2.2)
   uglifier (= 2.5.3)

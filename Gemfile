@@ -17,6 +17,7 @@ gem 'turbolinks',               '2.2.2'
 gem 'active_model_serializers', '0.9.0.alpha1'
 gem 'carrierwave',              '0.10.0'
 gem 'carrierwave-mongoid',      '0.7.1', require: 'carrierwave/mongoid'
+gem 'state_machine',            '1.2.0'
 
 group :production do
   gem 'rails_12factor'
