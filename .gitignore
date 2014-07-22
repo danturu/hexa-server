@@ -14,3 +14,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Igone desktop services store
+.DS_Store
+
+# Ignore development files
+.env
+.rspec
+.foreman
