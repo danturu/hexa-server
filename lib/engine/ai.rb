@@ -1,0 +1,2 @@
+class Engine::AI
+end
