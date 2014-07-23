@@ -24,6 +24,7 @@ gem 'doorkeeper',               '1.3.1'
 gem 'omniauth',                 '1.2.2'
 gem 'omniauth-twitter',         '1.0.1'
 gem 'omniauth-facebook',        '1.6.0'
+gem 'colored',                  '1.2'
 
 group :production do
   gem 'rails_12factor'

@@ -10,5 +10,13 @@ module Grid
 
     validates :w, numericality: { only_integer: true }
     validates :h, numericality: { only_integer: true }
+
+    def actual_w
+      w
+    end
+
+    def actual_h
+      h * 2 - 1
+    end
   end
 end
