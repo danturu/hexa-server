@@ -6,7 +6,7 @@ class User
   field :provider, type: String
   field :uid,      type: String
 
-  has_and_belongs_to_many :games
+  has_and_belongs_to_many :games, index: true
 
   def self.from_provider(auth)
     where(auth.slice("provider", "uid")).first || create_from_provider!(auth)
