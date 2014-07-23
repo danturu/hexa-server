@@ -7,8 +7,7 @@ class Api::V1::BaseController < ActionController::Metal
   include ActionController::Rescue
   include ActionController::ParamsWrapper
   include AbstractController::Callbacks
-
-  append_view_path "#{Rails.root}/app/views"
+  include Authenticable
 
   wrap_parameters format: [:json]
 
