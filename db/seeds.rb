@@ -16,8 +16,8 @@ plots_map = <<-map
 | x | x | x | x |
 x | x | x | x | x
 | x | x | x | x |
-x | x | x | x | x
-| x | x - x | x |
+x | x | - | x | x
+| x | x | x | x |
 x | x | x | x | x
 | x | - | - | x |
 x | x | x | x | x
@@ -36,8 +36,8 @@ units_map = <<-map
 | x | x | x | x |
 B | x | x | x | B
 | x | x | x | x |
-x | x | x | x | x
-| x | x - x | x |
+x | x | - | x | x
+| x | x | x | x |
 x | x | x | x | x
 | x | - | - | x |
 x | x | x | x | x
@@ -51,8 +51,8 @@ map
 
 parser = Engine::Parser.new
 
-plots_attributes = parser.from_matrix(plots_map, "x").map      {|cell| plots[cell[:sign]].merge x: cell[:x], y: cell[:y] }
-units_attributes = parser.from_matrix(units_map, "W", "B").map {|cell| units[cell[:sign]].merge x: cell[:x], y: cell[:y] }
+plots_attributes = parser.from_matrix(plots_map, "x").map      {|cell| plots[cell[:char]].merge x: cell[:x], y: cell[:y] }
+units_attributes = parser.from_matrix(units_map, "W", "B").map {|cell| units[cell[:char]].merge x: cell[:x], y: cell[:y] }
 
 cancer = Planet.create! name: "Cancer", description: "...", w: 9, h: 9, plots: plots_attributes, units: units_attributes
 
