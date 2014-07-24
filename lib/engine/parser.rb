@@ -1,17 +1,15 @@
 require "matrix"
 
 class Engine::Parser
-  using Base::MutableMatrix
+  using Engine::Base::MutableMatrix
 
   def from_matrix(map, *filter)
     @matrix = Matrix[*map.clone.split("\n").map {|row| row.split(" ") }]
 
     [].tap do |cells|
       @matrix.row_vectors.each_with_index do |row, y|
-        row.each_with_index do |sign, x|
-          next if filter.exclude? sign
-
-          cells.push x: x, y: y, sign: sign if filter.include?(sign)
+        row.each_with_index do |char, x|
+          cells.push x: x, y: y, char: char if filter.include? char
         end
       end
     end
@@ -29,14 +27,21 @@ class Engine::Parser
     layers.each do |matrix|
       matrix.row_vectors.each_with_index do |row, y|
         row.each_with_index do |cell, x|
-          next if cell.nil?
-
-          formatted[x, y] = char(cell)
+          formatted[x, y] = char(cell) if cell.present?
         end
       end
     end
 
-    formatted.row_vectors.each_with_index {|row, index| puts row.to_a.join(" ") }
+    print_vertical_indexes formatted.column_size
+
+    formatted.row_vectors.each_with_index do |row, index|
+      horizontal = index.to_s.last.blue
+      puts "#{horizontal} #{row.to_a.join(' ')} #{horizontal}"
+    end
+
+    print_vertical_indexes formatted.column_size
+
+    true
   end
 
 private
@@ -47,5 +52,10 @@ private
 
   def char(cell)
     cell.object.char.send cell.object.color
+  end
+
+  def print_vertical_indexes(size)
+    vertical = (0..size - 1).map(&:to_s).map(&:last).join(" ")
+    puts "+ #{vertical} +".blue
   end
 end
