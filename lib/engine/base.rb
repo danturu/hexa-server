@@ -1,6 +1,7 @@
 require "matrix"
 
 module Engine::Base
+  include Engine::Events
   include Engine::Errors
 
   module MutableMatrix
@@ -29,6 +30,11 @@ module Engine::Base
 
   def move!(from_x:, from_y:, to_x:, to_y:, player:)
     raise OutOfTurn, "It isn't your turn to move" unless can_turn? player
+
+    from_x = from_x.to_i
+    from_y = from_y.to_i
+    to_x   = to_x.to_i
+    to_y   = to_y.to_i
 
     unit = units.where(x: from_x, y: from_y).first or raise InvalidMovement, "No unit was found"
 
