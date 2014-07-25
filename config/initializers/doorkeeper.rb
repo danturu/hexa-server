@@ -2,16 +2,16 @@ Doorkeeper.configure do
   orm :mongoid4
 
   # This block will be called to check whether the resource owner is authenticated or not.
-  resource_owner_authenticator do
-    current_user
+  resource_owner_authenticator do |controller|
+    controller.extend(Authenticable).current_user || redirect_to(root_url)
   end
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.
-  # admin_authenticator do
-  #   # Put your admin authentication logic here.
-  #   # Example implementation:
-  #   Admin.find_by_id(session[:admin_id]) || redirect_to(new_admin_session_url)
-  # end
+  admin_authenticator do
+    authenticate_or_request_with_http_basic do |username, password|
+      username == "admin" && password == ENV["HEXA_ADMIN_PASSWORD"]
+    end
+  end
 
   # Authorization Code expiration time (default 10 minutes).
   # authorization_code_expires_in 10.minutes
@@ -73,9 +73,9 @@ Doorkeeper.configure do
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
   # For example if dealing with trusted a application.
-  # skip_authorization do |resource_owner, client|
-  #   client.superapp? or resource_owner.admin?
-  # end
+  skip_authorization do |resource_owner, client|
+    client.name == ENV["GAME_CLIENT_ID"]
+  end
 
   # WWW-Authenticate Realm (default "Doorkeeper").
   # realm "Doorkeeper"
@@ -85,3 +85,4 @@ Doorkeeper.configure do
   # set to true if you want this to be allowed
   # wildcard_redirect_uri false
 end
+

@@ -147,6 +147,8 @@ GEM
     optionable (0.2.0)
     origin (2.1.1)
     polyglot (0.3.5)
+    pundit (0.2.3)
+      activesupport (>= 3.0.0)
     pusher (0.12.0)
       httpclient (~> 2.3.0)
       multi_json (~> 1.0)
@@ -239,6 +241,7 @@ DEPENDENCIES
   omniauth (= 1.2.2)
   omniauth-facebook (= 1.6.0)
   omniauth-twitter (= 1.0.1)
+  pundit (= 0.2.3)
   pusher (= 0.12.0)
   rails (= 4.1.4)
   rails_12factor

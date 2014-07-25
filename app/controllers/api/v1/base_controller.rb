@@ -1,6 +1,7 @@
 class Api::V1::BaseController < ActionController::Metal
   include AbstractController::Rendering
   include AbstractController::Callbacks
+  include ActionController::Head
   include ActionController::Helpers
   include ActionController::Redirecting
   include ActionController::Rendering
@@ -11,6 +12,7 @@ class Api::V1::BaseController < ActionController::Metal
   include ActionController::Rescue
   include ActionController::Instrumentation
   include ActionController::Renderers::All
+  include Doorkeeper::Helpers::Filter
   include Authenticable
   include Pundit
 
@@ -19,11 +21,11 @@ class Api::V1::BaseController < ActionController::Metal
   rescue_from Mongoid::Errors::InvalidFind,      with: :invalid_request
   rescue_from Pundit::NotAuthorizedError,        with: :not_authorized
 
-  Mongoid::Errors::InvalidFind
-
   wrap_parameters format: [:json]
 
   before_filter :allow_cross_domain
+
+  doorkeeper_for :all
 
   def options
     allow_cross_domain
