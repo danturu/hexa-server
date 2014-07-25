@@ -27,8 +27,18 @@ task :play => :environment do
     invalid_turn { game.turn! from_x: 0, from_y: 4, to_x: 1, to_y: 4, player: black }
 
     puts "Turn 4:"
+    invalid_turn { game.turn! from_x: 8, from_y: 4, to_x: 6, to_y: 8, player: black }
+
+    puts "Turn 4:"
+    invalid_turn { game.turn! from_x: 8, from_y: 3, to_x: 7, to_y: 7, player: black }
+
+    puts "Turn 4:"
+    invalid_turn { game.turn! from_x: 4, from_y: 0, to_x: 5, to_y: 1, player: black }
+
+    puts "Turn 5:"
     invalid_turn { game.turn! from_x: 8, from_y: 4, to_x: 7, to_y: 7, player: white }
   ensure
+
     white.destroy; black.destroy; game.destroy;
   end
 end

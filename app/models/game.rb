@@ -67,6 +67,11 @@ class Game
     self.black_player = opponent
   end
 
+  def start!(*args)
+    raise AlreadyStartedError, "Game has already started" unless can_start?
+    super
+  end
+
   def white_units
     units.where "metadata.owner" => "white"
   end

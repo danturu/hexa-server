@@ -24,19 +24,26 @@ module Engine::Base
     candidate.is_a? User
   end
 
-  def can_turn?(player)
+  def can_turn_now?(player)
     turn_of == player
   end
 
+  def can_control_unit?(unit, player)
+    unit.metadata[:owner] == (player == white_player ? "white" : "black")
+  end
+
   def move!(from_x:, from_y:, to_x:, to_y:, player:)
-    raise OutOfTurn, "It isn't your turn to move" unless can_turn? player
+    raise OutOfTurn, "It isn't your turn to move" unless can_turn_now? player
 
     from_x = from_x.to_i
     from_y = from_y.to_i
     to_x   = to_x.to_i
     to_y   = to_y.to_i
 
-    unit = units.where(x: from_x, y: from_y).first or raise InvalidMovement, "No unit was found"
+    unit = units.where(x: from_x, y: from_y).first
+
+    raise InvalidMovement, "No unit was found" unless unit
+    raise InvalidMovement, "Enemy unit not yours" unless can_control_unit? unit, player
 
     if replication? from_x, from_y, to_x, to_y
       infect replicate(unit, to_x, to_y)

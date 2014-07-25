@@ -15,6 +15,8 @@ class Api::V1::GamesController < Api::V1::BaseController
   def join
     game = Game.find(params[:id]).tap {|game| game.start! current_user }
     render json: game
+  rescue Engine::Errors::AlreadyStartedError => ex
+    render json: { error: ex.class.name.demodulize }, status: :unprocessable_entity
   rescue Engine::Errors::InvalidOpponentError => ex
     render json: { error: ex.class.name.demodulize }, status: :unprocessable_entity
   rescue Engine::Errors::AgainstItselfError => ex
@@ -22,7 +24,7 @@ class Api::V1::GamesController < Api::V1::BaseController
   end
 
   def turn
-    game = Game.find(params[:id]).tap {|game| game.turn! turn_params } # ({from_x: 4, from_y: 0, to_x: 4, to_y: 3, player: User.first}) }  # turn_params }
+    game = current_user.games.find(params[:id]).tap {|game| game.turn! turn_params }
     render json: {}, status: :ok
   rescue Engine::Errors::OutOfTurn => ex
     render json: { error: ex.class.name.demodulize }, status: :unprocessable_entity
