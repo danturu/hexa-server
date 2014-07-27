@@ -11,9 +11,11 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      get "users/current", to: "users#current"
+
       resources :planets, only: [:index                ]
       resources :objects, only: [:index                ]
-      resources :games,   only: [:index, :show, :create] {  put :join, on: :member; put :turn, on: :member; }
+      resources :games,   only: [        :show, :create] {  put :join, on: :member; put :turn, on: :member; }
     end
   end
 

@@ -1,8 +1,4 @@
 class Api::V1::GamesController < Api::V1::BaseController
-  def index
-    render json: current_user.games
-  end
-
   def show
     render json: current_user.games.find(params[:id])
   end
