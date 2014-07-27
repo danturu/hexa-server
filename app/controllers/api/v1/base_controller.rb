@@ -13,7 +13,6 @@ class Api::V1::BaseController < ActionController::Metal
   include ActionController::Instrumentation
   include ActionController::Renderers::All
   include Doorkeeper::Helpers::Filter
-  include Authenticable
   include Pundit
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: :missing_resource
@@ -30,6 +29,10 @@ class Api::V1::BaseController < ActionController::Metal
   def options
     allow_cross_domain
     head :ok
+  end
+
+  def current_user
+    @current_user ||= User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
   end
 
 private
