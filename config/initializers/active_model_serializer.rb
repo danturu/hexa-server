@@ -1,7 +1,5 @@
-ActiveModel::Serializer.setup do |config|
-  config.root      = false
-  config.namespace = true
-end
+ActiveModel::Serializer.root      = false
+ActiveModel::ArraySerializer.root = false
 
 # Makes Mongoid and ActiveModel::Serializer play nicely.
 
