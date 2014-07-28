@@ -24,7 +24,7 @@ class Api::V1::BaseController < ActionController::Metal
 
   before_filter :allow_cross_domain
 
-  doorkeeper_for :all
+  doorkeeper_for :all, unless: :cross_origin_sharing?
 
   def options
     allow_cross_domain
@@ -36,6 +36,10 @@ class Api::V1::BaseController < ActionController::Metal
   end
 
 private
+
+  def cross_origin_sharing?
+    action_name.to_sym == :options
+  end
 
   def allow_cross_domain
     headers["Access-Control-Allow-Origin"]   = request.env["HTTP_ORIGIN"]
