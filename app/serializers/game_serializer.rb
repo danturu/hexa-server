@@ -4,6 +4,6 @@ class GameSerializer < ActiveModel::Serializer
   has_many :plots
   has_many :units
 
-  has_one :white_player
-  has_one :black_player
+  has_one :white_player, serializer: PlayerSerializer
+  has_one :black_player, serializer: PlayerSerializer
 end
