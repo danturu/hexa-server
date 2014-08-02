@@ -1,7 +1,7 @@
 class PlanetSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :photo, :w, :h, :position
+  attributes :id, :name, :description, :image_url, :position
 
-  def photo
-    object.photo.url
+  def image_url
+    object.image.url
   end
 end

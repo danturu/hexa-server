@@ -6,7 +6,7 @@ class Planet
   field :name,        type: String
   field :description, type: String
 
-  mount_uploader :photo, PhotoUploader
+  mount_uploader :image, ImageUploader
 
   orderable
 
