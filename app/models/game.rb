@@ -45,14 +45,15 @@ class Game
   end
 
   def self.createFrom!(planet, game_owner:, against_ai: false)
-    create! do |game|
+    game_owner.games.create! do |game|
       game.game_owner = game_owner
       game.against_ai = against_ai
 
       # generating map...
 
-      game.w = planet.w
-      game.h = planet.h
+      game.planet = planet
+      game.w      = planet.w
+      game.h      = planet.h
       planet.plots.each {|plot| game.plots.build plot.attributes.except("_id") }
       planet.units.each {|unit| game.units.build unit.attributes.except("_id") }
     end
@@ -61,6 +62,8 @@ class Game
   def prepare!(opponent)
     raise InvalidOpponentError, "Сan't play without opponent" unless player? opponent
     raise AgainstItselfError, "Сan't play against itself" unless opponent? opponent
+
+    opponent.games << self
 
     self.turn_of      = game_owner
     self.white_player = game_owner
