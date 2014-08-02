@@ -51,7 +51,7 @@ private
   end
 
   def char(cell)
-    cell.object.char.send cell.object.color
+    cell.object.char.green
   end
 
   def print_vertical_indexes(size)
