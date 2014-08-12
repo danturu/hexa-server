@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hexa</title>
+    <title>Hexa Space</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%= stylesheet_link_tag    "application", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
@@ -9,6 +11,12 @@
   </head>
 
   <body>
+    <% if flash[:notice] || flash[:alert] %>
+      <div class="notice"><%= flash[:notice] || flash[:alert] %></div>
+    <% end %>
+
     <%= yield %>
+
+    <footer>© 2014 COMBO GAMES</footer>
   </body>
 </html>

@@ -1,0 +1,244 @@
+@include keyframes("rotate") {
+  0%   { @include transform(rotate(0deg))   }
+  100% { @include transform(rotate(360deg)) }
+}
+
+@include keyframes("rotate-reverse") {
+  0%   { @include transform(rotate(360deg)) }
+  100% { @include transform(rotate(0deg))   }
+}
+
+@include keyframes("fade") {
+  0%   { opacity: 1.0 }
+  50%  { opacity: 0.2 }
+  100% { opacity: 1.0 }
+}
+
+article.home {
+  @include flex(1);
+  @include outer-container;
+  padding-top: 8rem;
+  position: relative;
+  width: 100%;
+
+  @include media(max-width 600px) {
+    padding-top: 4rem;
+  }
+}
+
+article.home > h1 {
+  @include hide-text;
+  @include retina-image("logo", 100% 100%, $retina-suffix: "_2x");
+  @include size(38rem 25rem);
+  display: block;
+  margin: 0 auto 4rem;
+
+  @include media(max-width 600px) {
+    @include retina-image("mobile/logo", 100% 100%, $retina-suffix: "_2x");
+    @include size(20rem 14rem);
+    margin: 0 auto 2rem;
+  }
+}
+
+article.home > h2 {
+  display: block;
+  font-size: 2rem;
+  margin: 0 auto 6rem;
+  max-width: 60rem;
+  text-align: center;
+
+  @include media(max-width 600px) {
+    font-size: 1.3rem;
+    margin: 0 auto 4rem;
+    max-width: 28rem;
+  }
+
+  @include media(max-width 600px orientation landscape) {
+    font-size: 1.5rem;
+    max-width: 40rem;
+  }
+}
+
+article.home section.auth {
+  h3 {
+    font-size: 3rem;
+    text-align: center;
+  }
+
+  ul.providers {
+    text-align: center;
+    font-size: 0;
+
+    li {
+      @include size(15rem);
+      display: inline-block;
+
+      & + li { margin-left: 2rem; }
+
+      a {
+        @include hide-text;
+        @include size(100%);
+        @include transition-duration(.3s);
+        @include transition-property(transform);
+        display: block;
+
+        &:hover {
+          @include transform(rotate(4deg) scale(1.1));
+        }
+      }
+
+      &.facebook a {
+        @include retina-image("provider_facebook", 100% 100%, $retina-suffix: "_2x");
+      }
+
+      &.twitter a {
+        @include retina-image("provider_twitter", 100% 100%, $retina-suffix: "_2x");
+      }
+    }
+  }
+
+  @include media(max-width 600px) {
+    h3 {
+      font-size: 2rem;
+    }
+
+    ul.providers li {
+      @include size(10rem);
+
+      &.facebook a {
+        @include retina-image("mobile/provider_facebook", 100% 100%, $retina-suffix: "_2x");
+      }
+
+      &.twitter a {
+        @include retina-image("mobile/provider_twitter", 100% 100%, $retina-suffix: "_2x");
+      }
+    }
+  }
+}
+
+article.home ul.planets {
+  @include position(absolute, 0px 0px -5rem);
+  overflow: hidden;
+  z-index: -1;
+
+  li.planet {
+    &:before {
+      content: " ";
+      display: block;
+      height: 0;
+      padding-bottom: 100%;
+    }
+
+    &:after {
+      @include position(absolute, 0px 0px);
+      content: " ";
+      display: block;
+    }
+
+    div.shine {
+      @include position(absolute, 0px 0px);
+      background-size: 100% 100%;
+
+      &.fader {
+        @include animation(fade 15s linear 0s infinite normal both);
+        background-image: image-url("shine_fader.png");
+      }
+
+      &.outer {
+        @include animation(rotate 120s linear 0s infinite normal both);
+        background-image: image-url("shine_outer.png");
+      }
+
+      &.inner {
+        @include animation(rotate-reverse 120s linear 0s infinite normal both);
+        background-image: image-url("shine_inner.png");
+      }
+    }
+  }
+
+  @include media(max-width 600px) {
+    bottom: -4rem;
+  }
+}
+
+article.home ul.planets li.cancer {
+  @include position(absolute, 32rem null null 50%);
+  @include size(110rem);
+  @include transform(translateX(-50%));
+  z-index: 4;
+
+  &:after {
+    @include retina-image("cancer", 100% 100%, $retina-suffix: "_2x");
+  }
+
+  @include media(max-width 600px) {
+    @include size(60rem);
+    top: 22rem;
+
+    &:after {
+      @include retina-image("mobile/cancer", 100% 100%, $retina-suffix: "_2x");
+    }
+  }
+}
+
+article.home ul.planets li.scorpio {
+  @include position(absolute, 60rem null null 50%);
+  @include size(30rem);
+  @include transform(translateX(-50%));
+  margin-left: 40rem;
+  z-index: 3;
+
+  &:after {
+    @include retina-image("scorpio", 100% 100%, $retina-suffix: "_2x");
+  }
+
+  @include media(max-width 600px) {
+    background: none;
+    display: none;
+  }
+}
+
+article.home ul.planets li.moon {
+  @include position(absolute, 11rem null null 0px);
+  @include size(30rem);
+
+  &:after {
+    @include retina-image("moon", 100% 100%, $retina-suffix: "_2x");
+  }
+
+  @include media(max-width 600px) {
+    @include position(absolute, 5rem null null -4rem);
+    @include size(15rem);
+
+    &:after {
+      @include retina-image("mobile/moon", 100% 100%, $retina-suffix: "_2x");
+    }
+  }
+
+  @include media(max-width 600px orientation landscape) {
+    left: 2rem;
+  }
+}
+
+li.gemini {
+  @include position(absolute, 5rem 5rem null null);
+  @include size(10rem);
+
+  &:after {
+    @include retina-image("gemini", 100% 100%, $retina-suffix: "_2x");
+  }
+
+  @include media(max-width 600px) {
+    @include position(absolute, 2rem -3rem null null);
+    @include size(5rem);
+
+    &:after {
+      @include retina-image("mobile/gemini", 100% 100%, $retina-suffix: "_2x");
+    }
+  }
+
+  @include media(max-width 600px orientation landscape) {
+    right: 4rem;
+  }
+}
+

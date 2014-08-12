@@ -1,0 +1,21 @@
+@font-face {
+    font-family: "Lasco";
+    font-weight: normal;
+    font-style:  normal;
+    src: font-url("lasco-regular.eot");
+    src: font-url("lasco-regular.eot?#iefix")       format("embedded-opentype"),
+         font-url("lasco-regular.woff")             format("woff"),
+         font-url("lasco-regular.ttf")              format("truetype"),
+         font-url("lasco-regular.svg#lascoregular") format("svg");
+}
+
+@font-face {
+    font-family: "Lasco Bold";
+    font-weight: normal;
+    font-style:  normal;
+    src: font-url("lasco-bold.eot");
+    src: font-url("lasco-bold.eot?#iefix")    format("embedded-opentype"),
+         font-url("lasco-bold.woff")          format("woff"),
+         font-url("lasco-bold.ttf")           format("truetype"),
+         font-url("lasco-bold.svg#lascobold") format("svg");
+}

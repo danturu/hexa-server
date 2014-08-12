@@ -19,7 +19,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get "signin",                  to: "sessions#new",       as: :signin
   get "auth/:provider/callback", to: "sessions#create"
   get "logout",                  to: "sessions#destroy",   as: :logout
   get "launch",                  to: "application#launch", as: :launch

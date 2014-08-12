@@ -3,7 +3,7 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do |controller|
-    controller.extend(Authenticable).current_user || redirect_to(root_url)
+    controller.extend(Authenticable).current_user || redirect_to(root_url, alert: t("doorkeeper.welcome_back"))
   end
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.

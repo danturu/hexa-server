@@ -1,4 +1,38 @@
-<%= link_to "Sign in using Facebook", "auth/facebook" %>
-<%= link_to "Sign in using Twitter",  "auth/Twitter" %>
+<article class="home">
+  <ul class="planets">
+    <li class="planet gemini">
+      <!-- no animation -->
+    </li>
 
-<%= current_user.name if current_user %>
+    <li class="planet scorpio">
+      <!-- no animation -->
+    </li>
+
+    <li class="planet moon">
+      <div class="shine fader"></div>
+    </li>
+
+    <li class="planet cancer">
+      <div class="shine fader"></div>
+      <div class="shine outer"></div>
+      <div class="shine inner"></div>
+    </li>
+  </ul>
+
+  <h1>Hexa Space</h1>
+  <h2><%=t "home.about_game" %></h2>
+
+  <section class="auth">
+    <h3><%=t "home.play_using" %></h3>
+
+    <ul class="providers">
+      <li class="provider facebook">
+        <%= link_to "Facebook", "auth/facebook" %>
+      </li>
+
+      <li class="provider twitter">
+        <%= link_to "Twitter", "auth/twitter" %>
+      </li>
+    </ul>
+  </section>
+</article>

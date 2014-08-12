@@ -1,0 +1,64 @@
+html {
+  font-size: 62.5%;
+  height: 100%;
+}
+
+body {
+  @include background-image(image-url("stars.png"), linear-gradient(#060730, #531B69));
+  @include display(flex);
+  @include flex-direction(column);
+  @include font-smoothing(on);
+  background-color: #531B69;
+  background-repeat: repeat, no-repeat;
+  color: white;
+  font-family: "Lasco Bold", $helvetica;
+  font-size: 1.6rem;
+  line-height: 1.45;
+  min-height: 100%;
+}
+
+header, footer, article, section, ul, ol, form, h1, h2, h3, h4, h5, h6 {
+  border:  0;
+  padding: 0;
+  margin:  0;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+}
+
+div.notice {
+  @include position(fixed, 0px 0px null);
+  background-color: #5dcf26;
+  box-shadow: 0 3px 3px 0 lighten(black, 20%);
+  color: black;
+  font-size: 1.5rem;
+  line-height: 5rem;
+  padding: 0 1rem;
+  text-align: center;
+  z-index: 999;
+
+  @include media(max-width 600px) {
+    font-size: 1.2rem;
+    line-height: 4rem;
+  }
+}
+
+footer {
+  font-size: 1.5rem;;
+  line-height: rem(50);
+  text-align: center;
+
+  @include media(max-width 600px) {
+    font-size: 1.2rem;
+    line-height: 4rem;
+  }
+}
