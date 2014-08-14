@@ -1,11 +1,9 @@
 class CellSerializer < ActiveModel::Serializer
-  attributes :id, :x, :y, :metadata
+  attributes :id, :x, :y, :metadata, :object_id
 
   # since serializer shadows any attribute named object...
 
-  has_one :cell_object, root: :object
-
-  def cell_object
-    object.object
+  def object_id
+    object.object_id
   end
 end
