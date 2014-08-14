@@ -1,7 +1,7 @@
 require "matrix"
 
 module Engine::Base
-  include Engine::Events
+  # include Engine::Events
   include Engine::Errors
 
   module MutableMatrix
