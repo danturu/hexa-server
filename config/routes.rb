@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   use_doorkeeper
 
-  if Rails.env.production?
+  if Rails.env.production? and not ENV["STORAGE_SUBDOMAIN_DISABLED"]
     get "*id", to: "files#serve", format: false, constraints: { subdomain: "storage" }
   else
     get "storage/*id", to: "files#serve", format: false
