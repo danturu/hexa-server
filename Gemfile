@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 
 gem 'rails',                    '4.1.4'
 gem 'thin',                     '1.6.2'
-gem 'heroku',                   '3.9.4'
 gem 'mongoid',                  '4.0.0', github: 'mongoid/mongoid'
 gem 'mongoid-grid_fs',          '2.1.0', github: 'ahoward/mongoid-grid_fs'
 gem 'mongoid_orderable',        '4.1.0'
