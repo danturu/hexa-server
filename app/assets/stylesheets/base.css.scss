@@ -53,8 +53,8 @@ div.notice {
 }
 
 footer {
-  font-size: 1.5rem;;
-  line-height: rem(50);
+  font-size: 1.5rem;
+  line-height: 5rem;
   text-align: center;
 
   @include media(max-width 600px) {
