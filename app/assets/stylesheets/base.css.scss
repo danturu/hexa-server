@@ -10,6 +10,7 @@ body {
   @include font-smoothing(on);
   background-color: #531B69;
   background-repeat: repeat, no-repeat;
+  background-attachment: fixed, fixed;
   color: white;
   font-family: "Lasco Bold", $helvetica;
   font-size: 1.6rem;
