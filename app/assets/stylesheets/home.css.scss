@@ -140,17 +140,17 @@ article.home ul.planets {
       background-size: 100% 100%;
 
       &.fader {
-        @include animation(fade 15s linear 0s infinite normal both);
+        // @include animation(fade 15s linear 0s infinite normal both);
         background-image: image-url("shine_fader.png");
       }
 
       &.outer {
-        @include animation(rotate 120s linear 0s infinite normal both);
+        // @include animation(rotate 120s linear 0s infinite normal both);
         background-image: image-url("shine_outer.png");
       }
 
       &.inner {
-        @include animation(rotate-reverse 120s linear 0s infinite normal both);
+        // @include animation(rotate-reverse 120s linear 0s infinite normal both);
         background-image: image-url("shine_inner.png");
       }
     }
