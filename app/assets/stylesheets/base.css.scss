@@ -8,14 +8,17 @@ body {
   @include display(flex);
   @include flex-direction(column);
   @include font-smoothing(on);
-  background-color: #531B69;
-  background-repeat: repeat, no-repeat;
-  background-attachment: fixed, fixed;
   color: white;
   font-family: "Lasco Bold", $helvetica;
   font-size: 1.6rem;
   line-height: 1.45;
   min-height: 100%;
+
+  background: {
+    attachment: fixed;
+    color: #531B69;
+    repeat: repeat;
+  }
 }
 
 header, footer, article, section, ul, ol, form, h1, h2, h3, h4, h5, h6 {
