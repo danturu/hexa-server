@@ -42,7 +42,7 @@ a {
 div.notice {
   @include position(fixed, 0px 0px null);
   background-color: #5dcf26;
-  box-shadow: 0 3px 3px 0 lighten(black, 20%);
+  box-shadow: 0 3px 3px 0 rgba(black, .7);
   color: black;
   font-size: 1.5rem;
   line-height: 5rem;
