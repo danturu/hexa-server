@@ -14,9 +14,10 @@
   100% { opacity: 1.0 }
 }
 
-article.home {
+main.home {
   @include flex(1);
   @include outer-container;
+  display: block;
   padding-top: 8rem;
   position: relative;
   width: 100%;
@@ -26,7 +27,7 @@ article.home {
   }
 }
 
-article.home > h1 {
+main.home > h1 {
   @include hide-text;
   @include retina-image("logo", 100% 100%, $retina-suffix: "_2x");
   @include size(38rem 25rem);
@@ -40,7 +41,7 @@ article.home > h1 {
   }
 }
 
-article.home > h2 {
+main.home > h2 {
   display: block;
   font-size: 2rem;
   margin: 0 auto 6rem;
@@ -59,7 +60,7 @@ article.home > h2 {
   }
 }
 
-article.home section.auth {
+main.home section.auth {
   h3 {
     font-size: 3rem;
     text-align: center;
@@ -116,7 +117,7 @@ article.home section.auth {
   }
 }
 
-article.home ul.planets {
+main.home ul.planets {
   @include position(absolute, 0px 0px -5rem);
   overflow: hidden;
   z-index: -1;
@@ -160,7 +161,7 @@ article.home ul.planets {
   }
 }
 
-article.home ul.planets li.cancer {
+main.home ul.planets li.cancer {
   @include position(absolute, 32rem null null 50%);
   @include size(110rem);
   @include transform(translateX(-50%));
@@ -180,7 +181,7 @@ article.home ul.planets li.cancer {
   }
 }
 
-article.home ul.planets li.scorpio {
+main.home ul.planets li.scorpio {
   @include position(absolute, 60rem null null 50%);
   @include size(30rem);
   @include transform(translateX(-50%));
@@ -197,7 +198,7 @@ article.home ul.planets li.scorpio {
   }
 }
 
-article.home ul.planets li.moon {
+main.home ul.planets li.moon {
   @include position(absolute, 11rem null null 0px);
   @include size(30rem);
 
