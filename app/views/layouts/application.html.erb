@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Hexa Space</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable"          content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <%= favicon_link_tag "/favicon.ico" %>
+    <%= favicon_link_tag "touch_icon_iphone.png",    rel: "apple-touch-icon",                   type: "image/png" %>
+    <%= favicon_link_tag "touch_icon_ipad.png",      rel: "apple-touch-icon", sizes: "76x76",   type: "image/png" %>
+    <%= favicon_link_tag "touch_icon_iphone_2x.png", rel: "apple-touch-icon", sizes: "120x120", type: "image/png" %>
+    <%= favicon_link_tag "touch_icon_ipad_2x.png",   rel: "apple-touch-icon", sizes: "152x152", type: "image/png" %>
 
     <%= stylesheet_link_tag    "application", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
