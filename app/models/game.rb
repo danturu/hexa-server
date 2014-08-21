@@ -17,8 +17,8 @@ class Game
 
   validates :game_owner, presence: true
 
-  state_machine :state, :initial => :waiting do
-    before_transition :waiting => :playing do |game, transition|
+  state_machine :state, initial: :inviting do
+    before_transition :inviting => :playing do |game, transition|
       game.prepare! transition.args.first
 
       game.print if Rails.env.development?
@@ -31,8 +31,12 @@ class Game
       game.print if Rails.env.development?
     end
 
+    before_transition :playing => :finished do |game, transition|
+      # GameFinishedEvent.new(game).delivery
+    end
+
     event :start do
-      transition :waiting => :playing
+      transition :inviting => :playing
     end
 
     event :turn do

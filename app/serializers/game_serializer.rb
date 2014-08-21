@@ -1,5 +1,5 @@
 class GameSerializer < ActiveModel::Serializer
-  attributes :id, :state, :w, :h, :game_owner_id, :turn_of_id, :planet_id
+  attributes :id, :state, :w, :h, :game_owner_id, :turn_of_id, :planet_id, :updated_at
 
   has_many :plots
   has_many :units

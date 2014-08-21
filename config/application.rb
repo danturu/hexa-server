@@ -23,5 +23,7 @@ module HexaServer
     # config.i18n.default_locale = :de
 
     config.autoload_paths << Rails.root.join("lib")
+
+    config.action_mailer.default_url_options = { host: ENV["ACTION_MAILER_HOST"] }
   end
 end

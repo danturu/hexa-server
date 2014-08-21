@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
       resources :planets, only: [:index                ]
       resources :objects, only: [:index                ]
-      resources :games,   only: [        :show, :create] {  put :join, on: :member; put :turn, on: :member; }
+      resources :games,   only: [        :show, :create] { member { put :invite; put :join; put :turn; } }
     end
   end
 

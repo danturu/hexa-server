@@ -8,6 +8,11 @@ class Api::V1::GamesController < Api::V1::BaseController
     render json: game
   end
 
+  def invite
+    NotificationMailer.invitation(current_user.games.find(params[:id]), params[:email]).deliver
+    render json: {}, status: :ok
+  end
+
   def join
     game = Game.find(params[:id]).tap {|game| game.start! current_user }
     render json: game
