@@ -5,42 +5,42 @@ class Game
   include Engine::Errors
   include Grid
 
-  field :against_ai, type: Boolean
-  field :w,          type: Integer
-  field :h,          type: Integer
+  field :metadata,   type: Hash
+  field :event_name, type: String
+  field :event_time, type: DateTime
 
   belongs_to :planet,                           index: true
-  belongs_to :game_owner,   class_name: "User", index: true
-  belongs_to :turn_of,      class_name: "User", index: true
   belongs_to :white_player, class_name: "User", index: true
   belongs_to :black_player, class_name: "User", index: true
+  belongs_to :turn_of,      class_name: "User", index: true
 
-  validates :game_owner, presence: true
-
-  state_machine :state, initial: :inviting do
-    before_transition :inviting => :playing do |game, transition|
-      game.prepare! transition.args.first
-
-      game.print if Rails.env.development?
+  state_machine :state do
+    before_transition :waiting => :playing do |game, transition|
+      game.black_player = transition.args.first
     end
 
     before_transition :playing => same do |game, transition|
       game.move! *transition.args
-      game.opponent_turn!
-
-      game.print if Rails.env.development?
     end
 
-    before_transition :playing => :finished do |game, transition|
-      # GameFinishedEvent.new(game).delivery
+    before_transition do |game, transition|
+      game.trigger transition.event
+    end
+
+    event :invite do
+      transition nil => :waiting
     end
 
     event :start do
-      transition :inviting => :playing
+      transition :waiting => :playing
     end
 
     event :turn do
       transition :playing => same
+    end
+
+    event :leave do
+      transition :playing => :finished
     end
 
     event :finish do
@@ -48,35 +48,33 @@ class Game
     end
   end
 
-  def self.createFrom!(planet, game_owner:, against_ai: false)
-    game_owner.games.create! do |game|
-      game.game_owner = game_owner
-      game.against_ai = against_ai
+  after_create :invite!
 
-      # generating map...
+  after_save do
+    white_player.games << self if white_player_id_changed? and white_player.is_a? User
+    black_player.games << self if black_player_id_changed? and black_player.is_a? User
+  end
 
-      game.planet = planet
-      game.w      = planet.w
-      game.h      = planet.h
-      planet.plots.each {|plot| game.plots.build plot.attributes.except("_id") }
-      planet.units.each {|unit| game.units.build unit.attributes.except("_id") }
+  def self.createFrom!(planet_id, metadata: {}, owner:)
+    planet = Planet.find planet_id
+
+    create! do |game|
+      game.white_player = owner
+      game.turn_of      = owner
+
+      game.metadata = metadata
+      game.planet   = planet
+      game.w        = planet.w
+      game.h        = planet.h
+
+      planet.plots.each {|plot| game.plots.build plot.attributes.except "_id" }
+      planet.units.each {|unit| game.units.build unit.attributes.except "_id" }
     end
   end
 
-  def prepare!(opponent)
-    raise InvalidOpponentError, "Сan't play without opponent" unless player? opponent
-    raise AgainstItselfError, "Сan't play against itself" unless opponent? opponent
-
-    opponent.games << self
-
-    self.turn_of      = game_owner
-    self.white_player = game_owner
-    self.black_player = opponent
-  end
-
-  def start!(*args)
-    raise AlreadyStartedError, "Game has already started" unless can_start?
-    super
+  def trigger(name)
+    self.event_name = name
+    self.event_time = Time.now
   end
 
   def white_units
@@ -85,12 +83,5 @@ class Game
 
   def black_units
     units.where "metadata.owner" => "black"
-  end
-
-  def print
-    parser = (@@parser ||= Engine::Parser.new)
-
-    parser.print parser.to_matrix(w: actual_w, h: actual_h, cells: plots),
-                 parser.to_matrix(w: actual_w, h: actual_h, cells: units)
   end
 end

@@ -20,19 +20,10 @@
   </ul>
 
   <h1>Hexa Space</h1>
-  <h2><%=t "home.about_game" %></h2>
+  <h2><%=t "home.about" %></h2>
 
   <section class="auth">
-    <h3><%=t "home.play_using" %></h3>
-
-    <ul class="providers">
-      <li class="provider facebook">
-        <%= link_to "Facebook", "auth/facebook" %>
-      </li>
-
-      <li class="provider twitter">
-        <%= link_to "Twitter", "auth/twitter" %>
-      </li>
-    </ul>
+    <h3><%=t "home.start" %></h3>
+    <%= link_to "", ENV["FACEBOOK_GAME_URL"], class: "facebook" %>
   </section>
 </main>

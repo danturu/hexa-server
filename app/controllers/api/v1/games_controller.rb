@@ -4,8 +4,25 @@ class Api::V1::GamesController < Api::V1::BaseController
   end
 
   def create
-    game = Game.createFrom! Planet.find(params[:planet_id]), game_owner: current_user
-    render json: game
+    render json: Game.createFrom!(params[:planet_id], game_params)
+  end
+
+  def turn
+    current_user.games.find(params[:id]).tap do |game|
+      game.turn! turn_params
+    end
+
+    render json: {}, status: :ok
+  rescue Engine::Errors::Error => ex
+    render json: { error: ex.class.name.demodulize }, status: :unprocessable_entity
+  end
+
+  def destroy
+    current_user.games.find(params[:id]).tap do |game|
+      if game.playing? then game.leave! else game.destroy! end
+    end
+
+    render json: {}, status: :ok
   end
 
   def invite
@@ -13,27 +30,11 @@ class Api::V1::GamesController < Api::V1::BaseController
     render json: {}, status: :ok
   end
 
-  def join
-    game = Game.find(params[:id]).tap {|game| game.start! current_user }
-    render json: game
-  rescue Engine::Errors::AlreadyStartedError => ex
-    render json: { error: ex.class.name.demodulize }, status: :unprocessable_entity
-  rescue Engine::Errors::InvalidOpponentError => ex
-    render json: { error: ex.class.name.demodulize }, status: :unprocessable_entity
-  rescue Engine::Errors::AgainstItselfError => ex
-    render json: { error: ex.class.name.demodulize }, status: :unprocessable_entity
-  end
-
-  def turn
-    game = current_user.games.find(params[:id]).tap {|game| game.turn! turn_params }
-    render json: {}, status: :ok
-  rescue Engine::Errors::OutOfTurn => ex
-    render json: { error: ex.class.name.demodulize }, status: :unprocessable_entity
-  rescue Engine::Errors::InvalidMovement => ex
-    render json: { error: ex.class.name.demodulize }, status: :unprocessable_entity
-  end
-
 protected
+
+  def game_params
+    { owner: current_user, metadata: { opponent: params[:opponent] } }
+  end
 
   def turn_params
     params.slice(:from_x, :from_y, :to_x, :to_y).merge(player: current_user).symbolize_keys

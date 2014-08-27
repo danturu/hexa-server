@@ -15,13 +15,14 @@ Rails.application.routes.draw do
 
       resources :planets, only: [:index                ]
       resources :objects, only: [:index                ]
-      resources :games,   only: [        :show, :create] { member { put :invite; put :join; put :turn; } }
+      resources :games,   only: [        :show, :create] { member { put :invite; put :turn; } }
     end
   end
 
+  post "canvas", to: "pages#canvas"
+
   get "auth/:provider/callback", to: "sessions#create"
-  get "logout",                  to: "sessions#destroy",   as: :logout
-  get "launch",                  to: "application#launch", as: :launch
+  get "logout",                  to: "sessions#destroy", as: :logout
 
   root to: "pages#home"
 end

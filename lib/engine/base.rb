@@ -33,7 +33,7 @@ module Engine::Base
   end
 
   def move!(from_x:, from_y:, to_x:, to_y:, player:)
-    raise OutOfTurn, "It isn't your turn to move" unless can_turn_now? player
+    raise OpponentTurnError, "It isn't your turn to move" unless can_turn_now? player
 
     from_x = from_x.to_i
     from_y = from_y.to_i
@@ -42,14 +42,16 @@ module Engine::Base
 
     unit = units.where(x: from_x, y: from_y).first
 
-    raise InvalidMovement, "No unit was found" unless unit
-    raise InvalidMovement, "Enemy unit not yours" unless can_control_unit? unit, player
+    raise InvalidTurnError, "No unit was found" unless unit
+    raise InvalidTurnError, "Enemy unit not yours" unless can_control_unit? unit, player
 
     if replication? from_x, from_y, to_x, to_y
       infect replicate(unit, to_x, to_y)
     else
       infect translate(unit, to_x, to_y)
     end
+
+    opponent_turn!
   end
 
   def opponent_turn!
@@ -109,14 +111,14 @@ protected
   end
 
   def translate(unit, x, y)
-    raise InvalidMovement, "Can't translate where: #{[unit.x, unit.y].to_json} => #{[x, y].to_json}" if perimeter(unit.x, unit.y, 2).exclude?(x: x, y: y) or occupied?(x, y)
+    raise InvalidTurnError, "Can't translate where: #{[unit.x, unit.y].to_json} => #{[x, y].to_json}" if perimeter(unit.x, unit.y, 2).exclude?(x: x, y: y) or occupied?(x, y)
 
     unit.update x: x, y: y
     unit
   end
 
   def replicate(unit, x, y)
-    raise InvalidMovement, "Can't replicate where: #{[unit.x, unit.y].to_json} => #{[x, y].to_json}" if perimeter(unit.x, unit.y, 1).exclude?(x: x, y: y) or occupied?(x, y)
+    raise InvalidTurnError, "Can't replicate where: #{[unit.x, unit.y].to_json} => #{[x, y].to_json}" if perimeter(unit.x, unit.y, 1).exclude?(x: x, y: y) or occupied?(x, y)
 
     replicated = units.create! unit.attributes.except("_id").merge(x: x, y: y)
     replicated

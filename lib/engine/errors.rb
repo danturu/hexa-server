@@ -1,7 +1,5 @@
 module Engine::Errors
-  class InvalidOpponentError < ArgumentError; end;
-  class AgainstItselfError < ArgumentError; end;
-  class AlreadyStartedError < StandardError; end;
-  class OutOfTurn < StandardError; end;
-  class InvalidMovement < StandardError; end;
+  class Error < StandardError; end;
+  class OpponentTurnError < Error; end;
+  class InvalidTurnError  < Error; end;
 end

@@ -1,7 +1,7 @@
 en:
   home:
-    about_game: "Threatened by an unknown enemy, the Earth’s governments unite to form an elite paramilitary organization to combat this extraterrestrial."
-    play_using: "Play using"
+    about: "Threatened by an unknown enemy, the Space Alliance unite to form an elite paramilitary organization to combat this aggressor."
+    start: "Play Now"
 
   doorkeeper:
     welcome_back: "Welcome back! Signin to continue playing!"

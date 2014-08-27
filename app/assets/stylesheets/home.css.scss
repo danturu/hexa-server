@@ -66,35 +66,17 @@ main.home section.auth {
     text-align: center;
   }
 
-  ul.providers {
-    text-align: center;
-    font-size: 0;
+  a.facebook {
+    @include hide-text;
+    @include retina-image("facebook", 100% 100%, $retina-suffix: "_2x");
+    @include size(15rem);
+    @include transition-duration(.3s);
+    @include transition-property(transform);
+    display: block;
+    margin: 0 auto;
 
-    li {
-      @include size(15rem);
-      display: inline-block;
-
-      & + li { margin-left: 2rem; }
-
-      a {
-        @include hide-text;
-        @include size(100%);
-        @include transition-duration(.3s);
-        @include transition-property(transform);
-        display: block;
-
-        &:hover {
-          @include transform(rotate(4deg) scale(1.1));
-        }
-      }
-
-      &.facebook a {
-        @include retina-image("provider_facebook", 100% 100%, $retina-suffix: "_2x");
-      }
-
-      &.twitter a {
-        @include retina-image("provider_twitter", 100% 100%, $retina-suffix: "_2x");
-      }
+    &:hover {
+      @include transform(rotate(4deg) scale(1.1));
     }
   }
 
@@ -103,16 +85,8 @@ main.home section.auth {
       font-size: 2rem;
     }
 
-    ul.providers li {
-      @include size(10rem);
-
-      &.facebook a {
-        @include retina-image("mobile/provider_facebook", 100% 100%, $retina-suffix: "_2x");
-      }
-
-      &.twitter a {
-        @include retina-image("mobile/provider_twitter", 100% 100%, $retina-suffix: "_2x");
-      }
+    a.facebook {
+      @include retina-image("mobile/facebook", 100% 100%, $retina-suffix: "_2x");
     }
   }
 }

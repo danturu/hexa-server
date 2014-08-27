@@ -9,9 +9,9 @@ class FilesController < ActionController::Base
     headers["Access-Control-Max-Age"]       = "1728000"
   end
 
-  ##
+
   # Use CDN for load balancing, high availability and performance.
-  #
+
   def serve
     file = Mongoid::GridFS[params[:id]]
 
