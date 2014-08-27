@@ -100,5 +100,6 @@ units_attributes = parser.from_matrix(units_map, "B", "G").map {|cell| units[cel
 
 cancer = Planet.create! name: "Cancer", description: "...", w: 9, h: 9, plots: plots_attributes, units: units_attributes, image: image_path("planets/cancer.png")
 
-parser.print parser.to_matrix(w: cancer.actual_w, h: cancer.actual_h, cells: cancer.plots),
-             parser.to_matrix(w: cancer.actual_w, h: cancer.actual_h, cells: cancer.units)
+parser.print \
+  parser.to_matrix(w: cancer.actual_w, h: cancer.actual_h, cells: cancer.plots),
+  parser.to_matrix(w: cancer.actual_w, h: cancer.actual_h, cells: cancer.units)
