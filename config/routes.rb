@@ -13,9 +13,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       get "users/current", to: "users#current"
 
-      resources :planets, only: [:index                ]
-      resources :objects, only: [:index                ]
-      resources :games,   only: [        :show, :create] { member { put :invite; put :turn; } }
+      resources :planets, only: [:index                          ]
+      resources :objects, only: [:index                          ]
+      resources :games,   only: [        :show, :create, :destroy] { member { put :invite; put :turn; } }
     end
   end
 

@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
-private
+protected
 
   def omniauth_auth
     @omniauth_auth ||= env["omniauth.auth"].with_indifferent_access
