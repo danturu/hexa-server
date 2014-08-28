@@ -42,10 +42,6 @@ protected
     { signed_request: params[:signed_request], return_to: env["HTTP_REFERER"] }
   end
 
-  def facebook_client
-    @facebook ||= Koala::Facebook::API.new facebook_token
-  end
-
   def facebook_request_ids
     params[:request_ids].to_s.split(',')
   end

@@ -1,10 +1,11 @@
 class SessionsController < ApplicationController
   def create
-    user = User.from_provider omniauth_auth
-
-    session[:user_id] = user.id.to_s
     session[:facebook_token]            = omniauth_auth[:credentials][:token]
     session[:facebook_token_expires_at] = omniauth_auth[:credentials][:expires_at]
+
+    User.from_provider(omniauth_auth, method(:facebook_avatar_url)).tap do |user|
+      session[:user_id] = user.id.to_s
+    end
 
     redirect_to(omniauth_params[:return_to] || root_url)
   end
@@ -25,5 +26,10 @@ private
 
   def omniauth_params
     @omniauth_params ||= env["omniauth.params"].with_indifferent_access
+  end
+
+  def facebook_avatar_url
+    avatar = facebook_client.get_object("/me/picture", redirect: false).with_indifferent_access[:data]
+    avatar[:url] unless avatar[:is_silhouette]
   end
 end

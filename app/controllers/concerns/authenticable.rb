@@ -12,4 +12,8 @@ module Authenticable
   def facebook_token_expired?
     session[:facebook_token_expires_at].to_i < Time.zone.now.to_i
   end
+
+  def facebook_client
+    @facebook ||= Koala::Facebook::API.new facebook_token
+  end
 end
