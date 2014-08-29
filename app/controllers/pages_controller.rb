@@ -43,11 +43,11 @@ protected
   end
 
   def facebook_request_ids
-    params[:request_ids].to_s.split(',')
+    params[:request_ids].to_s.split(",")
   end
 
   def parse_facebook_request(request_id)
-    request_token = [request_id, current_user.uid].join('_')
+    request_token = [request_id, current_user.uid].join("_")
 
     facebook_client.get_object(request_token) do |request|
       data = JSON.parse(request["data"].to_s).with_indifferent_access

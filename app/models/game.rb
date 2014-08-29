@@ -14,9 +14,11 @@ class Game
   belongs_to :black_player, class_name: "User", index: true
   belongs_to :turn_of,      class_name: "User", index: true
 
+  # game.trigger transition.event, PlayerSerializer.new(game.black_player).to_json
+
   state_machine :state do
     before_transition :waiting => :playing do |game, transition|
-      game.black_player = transition.args.first
+      game.join! transition.args.first
     end
 
     before_transition :playing => same do |game, transition|
@@ -24,7 +26,7 @@ class Game
     end
 
     before_transition do |game, transition|
-      game.trigger transition.event
+      game.log transition.event
     end
 
     event :invite do
@@ -72,9 +74,17 @@ class Game
     end
   end
 
-  def trigger(name)
-    self.event_name = name
+  def log(event)
+    self.event_name = event
     self.event_time = Time.now
+  end
+
+  def trigger(event, data={})
+    Pusher.trigger channel, event, data
+  end
+
+  def channel
+    [:presence, :game, id].join("-")
   end
 
   def white_units

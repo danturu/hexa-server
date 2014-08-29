@@ -32,6 +32,10 @@ module Engine::Base
     unit.metadata[:owner] == (player == white_player ? "white" : "black")
   end
 
+  def join!(opponent)
+    self.black_player = opponent
+  end
+
   def move!(from_x:, from_y:, to_x:, to_y:, player:)
     raise OpponentTurnError, "It isn't your turn to move" unless can_turn_now? player
 
