@@ -26,7 +26,6 @@ gem 'omniauth-twitter',         '1.0.1'
 gem 'omniauth-facebook',        '1.4.0'
 gem 'koala',                    '1.10.0rc'
 gem 'pundit',                   '0.2.3'
-gem 'colored',                  '1.2'
 
 group :production do
   gem 'rails_12factor'

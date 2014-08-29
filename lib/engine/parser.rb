@@ -35,7 +35,7 @@ class Engine::Parser
     print_vertical_indexes formatted.column_size
 
     formatted.row_vectors.each_with_index do |row, index|
-      horizontal = index.to_s.last.blue
+      horizontal = index.to_s.last
       puts "#{horizontal} #{row.to_a.join(' ')} #{horizontal}"
     end
 
@@ -51,11 +51,11 @@ private
   end
 
   def char(cell)
-    cell.object.char.green
+    cell.object.char
   end
 
   def print_vertical_indexes(size)
     vertical = (0..size - 1).map(&:to_s).map(&:last).join(" ")
-    puts "+ #{vertical} +".blue
+    puts "+ #{vertical} +"
   end
 end

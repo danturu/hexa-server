@@ -6,7 +6,7 @@ task :play => :environment do
       parser.to_matrix(w: game.actual_w, h: game.actual_h, cells: game.plots),
       parser.to_matrix(w: game.actual_w, h: game.actual_h, cells: game.units)
   rescue Engine::Errors::Error => ex
-    Rails.logger.error ex
+    puts ex
   end
 
   begin
