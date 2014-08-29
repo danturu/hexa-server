@@ -1,7 +1,7 @@
 puts "Creating universe from nothing..."
 
-if Rails.env.development?
-  Doorkeeper::Application.create! name: "hexa-webapp",  uid: ENV["DEV_GAME_PUBLIC_KEY"], secret: ENV["DEV_GAME_SECRET_KEY"], redirect_uri: ENV["DEV_GAME_REDIRECT_URI"]
+if Rails.env.development? and ENV.has_key?("DEV_GAME_REDIRECT_URL")
+  Doorkeeper::Application.create! name: "hexa-webapp", uid: ENV["DEV_GAME_PUBLIC_KEY"], secret: ENV["DEV_GAME_SECRET_KEY"], redirect_uri: ENV["DEV_GAME_REDIRECT_URL"]
 end
 
 def image_path(path)
