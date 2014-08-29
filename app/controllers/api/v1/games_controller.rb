@@ -25,11 +25,6 @@ class Api::V1::GamesController < Api::V1::BaseController
     render json: {}, status: :ok
   end
 
-  def invite
-    NotificationMailer.invitation(current_user.games.find(params[:id]), params[:email]).deliver
-    render json: {}, status: :ok
-  end
-
 protected
 
   def game_params
