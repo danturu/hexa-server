@@ -11,7 +11,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      get "users/current", to: "users#current"
+      get  "users/current",      to: "users#current"
+      post "messages/subscribe", to: "messages#subscribe"
 
       resources :planets, only: [:index                          ]
       resources :objects, only: [:index                          ]
